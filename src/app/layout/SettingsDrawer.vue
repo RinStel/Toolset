@@ -18,9 +18,12 @@ import {
   setDensity,
   setFontSize,
   setTheme,
+  setUiStyle,
   themeLabel,
+  UI_STYLE_PRESETS,
   type Density,
   type ThemeMode,
+  type UiStyleId,
 } from '../stores/appearance'
 
 const props = withDefaults(defineProps<{ modelValue?: boolean }>(), { modelValue: false })
@@ -39,6 +42,12 @@ const themeOptions = [
   { label: themeLabel('light'), value: 'light' },
   { label: themeLabel('system'), value: 'system' },
 ]
+
+const styleOptions = UI_STYLE_PRESETS.map((preset) => ({
+  label: preset.label,
+  value: preset.id,
+  title: preset.description,
+}))
 
 const densityOptions = [
   { label: '紧凑', value: 'compact' },
@@ -74,6 +83,10 @@ function onThemeChange(value: string | number): void {
   setTheme(value as ThemeMode)
 }
 
+function onStyleChange(value: string | number): void {
+  setUiStyle(value as UiStyleId)
+}
+
 function onDensityChange(value: string | number): void {
   setDensity(value as Density)
 }
@@ -105,6 +118,14 @@ function onResetAppearance(): void {
               :options="themeOptions"
               aria-label="主题"
               @update:model-value="onThemeChange"
+            />
+          </UiFormField>
+          <UiFormField label="风格" layout="horizontal" data-testid="appearance-style">
+            <UiSegmented
+              :model-value="appearance.style"
+              :options="styleOptions"
+              aria-label="风格"
+              @update:model-value="onStyleChange"
             />
           </UiFormField>
           <UiFormField

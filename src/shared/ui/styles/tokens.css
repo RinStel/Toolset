@@ -1,74 +1,14 @@
 /**
  * Design tokens (plan §7.4).
  *
- * Visual language: neutral carbon-slate instrument panel + engineering cobalt blue
- * accent (flat solid surfaces, zero gradients). Amber is reserved for warnings and
- * TX log entries. Dark is the default and `index.html` resolves `system` before the
- * first paint.
+ * Theme color variables & shared instrument panel primitives live in `theme.css`,
+ * while font stacks, radii, spacing, density rules and z-index layers live here.
+ * Dark + `industrial` style is the default and `index.html` resolves both before first paint.
  */
 
-:root,
-:root[data-theme='dark'] {
-  color-scheme: dark;
+@import './theme.css';
 
-  --bg: #11141a;
-  --bg-sunken: #0c0e13;
-  --bg-log: #0c0e13;
-  --bg-elev: #161a22;
-  --bg-elev-2: #1d222c;
-  --bg-hover: #242a36;
-  --bg-active: #2c3342;
-
-  --border: #262c38;
-  --border-strong: #384152;
-
-  --text: #e6eaf2;
-  --text-dim: #9ba3b4;
-  --text-faint: #687185;
-
-  --accent: #3b82f6;
-  --accent-hover: #60a5fa;
-  --accent-strong: #60a5fa;
-  --accent-soft: rgba(59, 130, 246, 0.14);
-  --on-accent: #ffffff;
-
-  --danger: #ef4444;
-  --danger-soft: rgba(239, 68, 68, 0.14);
-  --warn: #f59e0b;
-  --warn-soft: rgba(245, 158, 11, 0.14);
-  --ok: #22c55e;
-  --ok-soft: rgba(34, 197, 94, 0.14);
-  --on-danger: #ffffff;
-
-  --log-rx: #60a5fa;
-  --log-tx: #f59e0b;
-  --log-sys: #94a3b8;
-  --log-err: #f87171;
-  --log-ts: #64748b;
-  --log-decoded: #34d399;
-
-  /* Dashboard series palette (plan §6.9): 12 distinguishable series colors. */
-  --series-1: #3b82f6;
-  --series-2: #f59e0b;
-  --series-3: #10b981;
-  --series-4: #ef4444;
-  --series-5: #8b5cf6;
-  --series-6: #06b6d4;
-  --series-7: #ec4899;
-  --series-8: #84cc16;
-  --series-9: #f97316;
-  --series-10: #6366f1;
-  --series-11: #14b8a6;
-  --series-12: #a8a29e;
-
-  --overlay: rgba(0, 0, 0, 0.66);
-  --shadow-pop: 0 16px 40px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.05);
-  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.3);
-  --focus-ring: 0 0 0 2px rgba(59, 130, 246, 0.45);
-  --scrollbar-thumb: #384152;
-  --panel-highlight: none;
-  --grid-dot: transparent;
-
+:root {
   --font-ui: system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', sans-serif;
   --font-mono: ui-monospace, 'Cascadia Mono', Consolas, 'Courier New', monospace;
 
@@ -91,68 +31,6 @@
   --z-menu: 2000;
   --z-service: 3000;
   --z-toast: 3100;
-}
-
-:root[data-theme='light'] {
-  color-scheme: light;
-
-  --bg: #eef2f6;
-  --bg-sunken: #f8fafc;
-  --bg-log: #ffffff;
-  --bg-elev: #f1f5f9;
-  --bg-elev-2: #ffffff;
-  --bg-hover: #e6ebf2;
-  --bg-active: #dce3ec;
-
-  --border: #d5dce6;
-  --border-strong: #b0bccb;
-
-  --text: #0f172a;
-  --text-dim: #334155;
-  --text-faint: #475569;
-
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
-  --accent-strong: #1d4ed8;
-  --accent-soft: rgba(37, 99, 235, 0.1);
-  --on-accent: #ffffff;
-
-  --danger: #dc2626;
-  --danger-soft: rgba(220, 38, 38, 0.1);
-  --warn: #b45309;
-  --warn-soft: rgba(180, 83, 9, 0.12);
-  --ok: #15803d;
-  --ok-soft: rgba(21, 128, 61, 0.12);
-  --on-danger: #ffffff;
-
-  --log-rx: #0f3d91;
-  --log-tx: #8a3b00;
-  --log-sys: #334155;
-  --log-err: #b91c1c;
-  --log-ts: #475569;
-  --log-decoded: #0f5132;
-
-  /* Dashboard series palette (plan §6.9). */
-  --series-1: #2563eb;
-  --series-2: #d97706;
-  --series-3: #059669;
-  --series-4: #dc2626;
-  --series-5: #7c3aed;
-  --series-6: #0891b2;
-  --series-7: #db2777;
-  --series-8: #65a30d;
-  --series-9: #ea580c;
-  --series-10: #4f46e5;
-  --series-11: #0d9488;
-  --series-12: #57534e;
-
-  --overlay: rgba(20, 24, 33, 0.4);
-  --shadow-pop: 0 16px 36px rgba(15, 23, 42, 0.14), 0 0 0 1px rgba(15, 23, 42, 0.06);
-  --shadow-card: 0 6px 18px rgba(15, 23, 42, 0.08);
-  --focus-ring: 0 0 0 2px rgba(37, 99, 235, 0.35);
-  --scrollbar-thumb: #b0bccb;
-  --panel-highlight: none;
-  --grid-dot: transparent;
 }
 
 /* Density (plan §7.4): the appearance store switches this attribute. */

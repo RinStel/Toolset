@@ -1,10 +1,10 @@
 /**
  * Appearance store (plan.md §7.2, §7.4).
  *
- * Theme, font size and density are persisted in `toolset/app/settings.v1`
- * (`{ version: 1, data: { theme, fontSize, density } }`), the same key the inline
+ * Theme, UI style, font size and density are persisted in `toolset/app/settings.v1`
+ * (`{ version: 1, data: { theme, style, fontSize, density } }`), the same key the inline
  * script in `index.html` reads before first paint. The store owns all DOM side
- * effects: `data-theme`, `data-density` and the `--font-size` custom property.
+ * effects: `data-theme`, `data-style`, `data-density` and `--font-size`.
  *
  * It intentionally uses Vue's plain reactivity instead of Pinia so the shell can
  * import it without an active Pinia instance and component tests stay trivial.
@@ -15,6 +15,17 @@
 import { computed, reactive, readonly, ref, type ComputedRef } from 'vue'
 
 import { createAppStorage } from '@/shared/lib/storage/namespace'
+import {
+  DEFAULT_UI_STYLE,
+  isUiStyleId,
+  UI_STYLE_PRESETS,
+  uiStyleLabel,
+  type UiStyleId,
+  type UiStylePreset,
+} from '@/shared/ui/styles/themes'
+
+export { DEFAULT_UI_STYLE, isUiStyleId, UI_STYLE_PRESETS, uiStyleLabel }
+export type { UiStyleId, UiStylePreset }
 
 export type ThemeMode = 'dark' | 'light' | 'system'
 export type ResolvedTheme = 'dark' | 'light'
@@ -22,6 +33,7 @@ export type Density = 'compact' | 'comfortable'
 
 export interface AppearanceSettings {
   theme: ThemeMode
+  style: UiStyleId
   /** UI font size in px, constrained to 12–18. */
   fontSize: number
   density: Density
@@ -32,6 +44,7 @@ export const FONT_SIZE_MAX = 18
 
 export const DEFAULT_APPEARANCE: Readonly<AppearanceSettings> = Object.freeze({
   theme: 'dark',
+  style: DEFAULT_UI_STYLE,
   fontSize: 13,
   density: 'compact',
 })
@@ -54,6 +67,7 @@ function normalize(raw: unknown): AppearanceSettings {
   const source = (typeof raw === 'object' && raw !== null ? raw : {}) as Record<string, unknown>
   return {
     theme: isThemeMode(source.theme) ? source.theme : DEFAULT_APPEARANCE.theme,
+    style: isUiStyleId(source.style) ? source.style : DEFAULT_APPEARANCE.style,
     fontSize: clampFontSize(source.fontSize ?? DEFAULT_APPEARANCE.fontSize),
     density: source.density === 'comfortable' ? 'comfortable' : 'compact',
   }
@@ -95,6 +109,7 @@ function applyAppearance(): void {
   if (typeof document === 'undefined') return
   const root = document.documentElement
   root.dataset.theme = resolvedTheme.value
+  root.dataset.style = state.style
   root.dataset.density = state.density
   root.style.setProperty('--font-size', `${state.fontSize}px`)
 }
@@ -116,6 +131,11 @@ export function setTheme(theme: ThemeMode): void {
   commit({ theme })
 }
 
+/** Switches the UI style preset (`industrial`, `moss`, ...). */
+export function setUiStyle(style: UiStyleId): void {
+  commit({ style })
+}
+
 /** Cycles dark → light → system → dark, matching the header button (plan §7.2). */
 export function cycleTheme(): ThemeMode {
   const next: ThemeMode =
@@ -134,7 +154,7 @@ export function setDensity(density: Density): void {
   commit({ density })
 }
 
-/** Restores the default appearance (dark, 13px, compact). */
+/** Restores the default appearance (dark, industrial, 13px, compact). */
 export function resetAppearance(): void {
   applyStored({ ...DEFAULT_APPEARANCE })
   settingsStore.reset()

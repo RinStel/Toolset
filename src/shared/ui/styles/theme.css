@@ -1,0 +1,440 @@
+/**
+ * 站点统一 UI 主题封装（色彩令牌 + 通用仪器面板样式类）。
+ *
+ * 主题切换维度：
+ * - `data-theme`: `'dark'` | `'light'`（深浅明暗）
+ * - `data-style`: `'industrial'` | `'moss'`（站点视觉风格，可扩展）
+ *
+ * 新增 UI 风格步骤：
+ * 1. 在 `src/shared/ui/styles/themes.ts` 注册 `UiStyleId` 与预设元数据；
+ * 2. 在本文件下方新增 `:root[data-style='<id>'][data-theme='dark'|'light']` 令牌块。
+ */
+
+/* ========================================================================= */
+/* 风格 1：industrial（默认）— 碳灰仪器面板 + 工程钴蓝强调色                   */
+/* ========================================================================= */
+
+:root,
+:root[data-theme='dark'],
+:root[data-style='industrial'][data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #11141a;
+  --bg-sunken: #0c0e13;
+  --bg-log: #0c0e13;
+  --bg-elev: #161a22;
+  --bg-elev-2: #1d222c;
+  --bg-hover: #242a36;
+  --bg-active: #2c3342;
+
+  --border: #262c38;
+  --border-strong: #384152;
+
+  --text: #e6eaf2;
+  --text-dim: #9ba3b4;
+  --text-faint: #687185;
+
+  --accent: #3b82f6;
+  --accent-hover: #60a5fa;
+  --accent-strong: #60a5fa;
+  --accent-soft: rgba(59, 130, 246, 0.14);
+  --on-accent: #ffffff;
+
+  --danger: #ef4444;
+  --danger-soft: rgba(239, 68, 68, 0.14);
+  --warn: #f59e0b;
+  --warn-soft: rgba(245, 158, 11, 0.14);
+  --ok: #22c55e;
+  --ok-soft: rgba(34, 197, 94, 0.14);
+  --on-danger: #ffffff;
+
+  --log-rx: #60a5fa;
+  --log-tx: #f59e0b;
+  --log-sys: #94a3b8;
+  --log-err: #f87171;
+  --log-ts: #64748b;
+  --log-decoded: #34d399;
+
+  /* Dashboard series palette: 12 distinguishable series colors. */
+  --series-1: #3b82f6;
+  --series-2: #f59e0b;
+  --series-3: #10b981;
+  --series-4: #ef4444;
+  --series-5: #8b5cf6;
+  --series-6: #06b6d4;
+  --series-7: #ec4899;
+  --series-8: #84cc16;
+  --series-9: #f97316;
+  --series-10: #6366f1;
+  --series-11: #14b8a6;
+  --series-12: #a8a29e;
+
+  --overlay: rgba(0, 0, 0, 0.66);
+  --shadow-pop: 0 16px 40px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.3);
+  --focus-ring: 0 0 0 2px rgba(59, 130, 246, 0.45);
+  --scrollbar-thumb: #384152;
+  --panel-highlight: none;
+  --grid-dot: transparent;
+}
+
+:root[data-theme='light'],
+:root[data-style='industrial'][data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #eef2f6;
+  --bg-sunken: #f8fafc;
+  --bg-log: #ffffff;
+  --bg-elev: #f1f5f9;
+  --bg-elev-2: #ffffff;
+  --bg-hover: #e6ebf2;
+  --bg-active: #dce3ec;
+
+  --border: #d5dce6;
+  --border-strong: #b0bccb;
+
+  --text: #0f172a;
+  --text-dim: #334155;
+  --text-faint: #475569;
+
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-strong: #1d4ed8;
+  --accent-soft: rgba(37, 99, 235, 0.1);
+  --on-accent: #ffffff;
+
+  --danger: #dc2626;
+  --danger-soft: rgba(220, 38, 38, 0.1);
+  --warn: #b45309;
+  --warn-soft: rgba(180, 83, 9, 0.12);
+  --ok: #15803d;
+  --ok-soft: rgba(21, 128, 61, 0.12);
+  --on-danger: #ffffff;
+
+  --log-rx: #0f3d91;
+  --log-tx: #8a3b00;
+  --log-sys: #334155;
+  --log-err: #b91c1c;
+  --log-ts: #475569;
+  --log-decoded: #0f5132;
+
+  /* Dashboard series palette (light). */
+  --series-1: #2563eb;
+  --series-2: #d97706;
+  --series-3: #059669;
+  --series-4: #dc2626;
+  --series-5: #7c3aed;
+  --series-6: #0891b2;
+  --series-7: #db2777;
+  --series-8: #65a30d;
+  --series-9: #ea580c;
+  --series-10: #4f46e5;
+  --series-11: #0d9488;
+  --series-12: #57534e;
+
+  --overlay: rgba(20, 24, 33, 0.4);
+  --shadow-pop: 0 16px 36px rgba(15, 23, 42, 0.14), 0 0 0 1px rgba(15, 23, 42, 0.06);
+  --shadow-card: 0 6px 18px rgba(15, 23, 42, 0.08);
+  --focus-ring: 0 0 0 2px rgba(37, 99, 235, 0.35);
+  --scrollbar-thumb: #b0bccb;
+  --panel-highlight: none;
+  --grid-dot: transparent;
+}
+
+/* ========================================================================= */
+/* 风格 2：moss — 石墨暖灰表面 + 哑光苔绿强调色                                */
+/* ========================================================================= */
+
+:root[data-style='moss'][data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #111513;
+  --bg-sunken: #0b0e0d;
+  --bg-log: #0b0e0d;
+  --bg-elev: #161b18;
+  --bg-elev-2: #1c221f;
+  --bg-hover: #232b27;
+  --bg-active: #2b3530;
+
+  --border: #262f2a;
+  --border-strong: #37443d;
+
+  --text: #e6ebe8;
+  --text-dim: #9aa7a0;
+  --text-faint: #68756e;
+
+  --accent: #4f9d7a;
+  --accent-hover: #63b08d;
+  --accent-strong: #63b08d;
+  --accent-soft: rgba(79, 157, 122, 0.15);
+  --on-accent: #ffffff;
+
+  --danger: #ef4444;
+  --danger-soft: rgba(239, 68, 68, 0.14);
+  --warn: #f59e0b;
+  --warn-soft: rgba(245, 158, 11, 0.14);
+  --ok: #22c55e;
+  --ok-soft: rgba(34, 197, 94, 0.14);
+  --on-danger: #ffffff;
+
+  --log-rx: #8fb8c9;
+  --log-tx: #d7a64a;
+  --log-sys: #8b9691;
+  --log-err: #e07a72;
+  --log-ts: #68736c;
+  --log-decoded: #8fbf9a;
+
+  --series-1: #4f9d7a;
+  --series-2: #f59e0b;
+  --series-3: #38bdf8;
+  --series-4: #ef4444;
+  --series-5: #a78bfa;
+  --series-6: #2dd4bf;
+  --series-7: #f472b6;
+  --series-8: #a3e635;
+  --series-9: #fb923c;
+  --series-10: #818cf8;
+  --series-11: #34d399;
+  --series-12: #a8a29e;
+
+  --overlay: rgba(0, 0, 0, 0.66);
+  --shadow-pop: 0 16px 40px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.3);
+  --focus-ring: 0 0 0 2px rgba(79, 157, 122, 0.45);
+  --scrollbar-thumb: #37443d;
+  --panel-highlight: none;
+  --grid-dot: transparent;
+}
+
+:root[data-style='moss'][data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #eff2f0;
+  --bg-sunken: #f7f9f8;
+  --bg-log: #ffffff;
+  --bg-elev: #f2f5f3;
+  --bg-elev-2: #ffffff;
+  --bg-hover: #e5ebe7;
+  --bg-active: #dae2dd;
+
+  --border: #d2dbd5;
+  --border-strong: #adbab2;
+
+  --text: #0f1713;
+  --text-dim: #323f38;
+  --text-faint: #4c5c53;
+
+  --accent: #1f5c47;
+  --accent-hover: #174736;
+  --accent-strong: #174736;
+  --accent-soft: rgba(31, 92, 71, 0.1);
+  --on-accent: #ffffff;
+
+  --danger: #dc2626;
+  --danger-soft: rgba(220, 38, 38, 0.1);
+  --warn: #b45309;
+  --warn-soft: rgba(180, 83, 9, 0.12);
+  --ok: #15803d;
+  --ok-soft: rgba(21, 128, 61, 0.12);
+  --on-danger: #ffffff;
+
+  --log-rx: #1b4d63;
+  --log-tx: #8a3b00;
+  --log-sys: #323f38;
+  --log-err: #b91c1c;
+  --log-ts: #4c5c53;
+  --log-decoded: #1f5c47;
+
+  --series-1: #1f5c47;
+  --series-2: #d97706;
+  --series-3: #0284c7;
+  --series-4: #dc2626;
+  --series-5: #7c3aed;
+  --series-6: #0d9488;
+  --series-7: #db2777;
+  --series-8: #65a30d;
+  --series-9: #ea580c;
+  --series-10: #4f46e5;
+  --series-11: #059669;
+  --series-12: #57534e;
+
+  --overlay: rgba(15, 23, 19, 0.4);
+  --shadow-pop: 0 16px 36px rgba(15, 23, 19, 0.14), 0 0 0 1px rgba(15, 23, 19, 0.06);
+  --shadow-card: 0 6px 18px rgba(15, 23, 19, 0.08);
+  --focus-ring: 0 0 0 2px rgba(31, 92, 71, 0.35);
+  --scrollbar-thumb: #adbab2;
+  --panel-highlight: none;
+  --grid-dot: transparent;
+}
+
+/* ========================================================================= */
+/* 统一页面级工具容器与仪器面板样式原语（全站工具复用）                        */
+/* ========================================================================= */
+
+.ui-tool-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.ui-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-elev);
+  box-shadow: var(--panel-highlight);
+}
+
+.ui-toolbar__group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.ui-panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-elev);
+  box-shadow: var(--panel-highlight);
+  overflow: hidden;
+}
+
+.ui-panel__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-height: 36px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elev-2);
+}
+
+.ui-panel__heading {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ui-panel__title {
+  margin: 0;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.ui-panel__subtitle {
+  color: var(--text-faint);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.ui-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.ui-panel__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: 12px;
+  min-width: 0;
+}
+
+.ui-stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-sunken);
+  min-width: 0;
+}
+
+.ui-stat-card__label {
+  color: var(--text-faint);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ui-stat-card__value {
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.ui-kv-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-height: var(--row-h);
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+
+.ui-kv-row:last-child {
+  border-bottom: 0;
+}
+
+.ui-kv-row__key {
+  color: var(--text-dim);
+  flex: none;
+}
+
+.ui-kv-row__val {
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-align: right;
+  word-break: break-all;
+}
+
+.ui-code-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-sunken);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.4;
+}
+
+.ui-preview-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-sunken);
+  overflow: auto;
+}

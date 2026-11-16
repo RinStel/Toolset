@@ -11,19 +11,25 @@
         try {
           var raw = localStorage.getItem('toolset/app/settings.v1')
           var theme = 'dark'
+          var style = 'industrial'
           if (raw) {
             var parsed = JSON.parse(raw)
             var data = parsed && typeof parsed === 'object' ? parsed.data : null
             if (data && (data.theme === 'dark' || data.theme === 'light' || data.theme === 'system')) {
               theme = data.theme
             }
+            if (data && (data.style === 'industrial' || data.style === 'moss')) {
+              style = data.style
+            }
           }
           if (theme === 'system') {
             theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
           }
           document.documentElement.dataset.theme = theme
+          document.documentElement.dataset.style = style
         } catch (error) {
           document.documentElement.dataset.theme = 'dark'
+          document.documentElement.dataset.style = 'industrial'
         }
       })()
     </script>
