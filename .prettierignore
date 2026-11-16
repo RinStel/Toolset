@@ -1,0 +1,17 @@
+# 依赖与构建产物
+node_modules/
+dist/
+coverage/
+test-results/
+playwright-report/
+.pnpm-store/
+.pnpm-cache/
+.playwright-browsers/
+.tmp/
+docs/screenshots/
+
+# 故意违规的架构样例（由 tests/architecture/depcruise.test.ts 使用，不参与格式化）
+tests/architecture/fixtures/
+
+# 包管理器生成的锁文件
+pnpm-lock.yaml

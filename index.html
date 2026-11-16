@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="%BASE_URL%favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
+    <title>Toolset · RinStel的工具箱</title>
+    <script>
+      ;(function () {
+        try {
+          var raw = localStorage.getItem('toolset/app/settings.v1')
+          var theme = 'dark'
+          if (raw) {
+            var parsed = JSON.parse(raw)
+            var data = parsed && typeof parsed === 'object' ? parsed.data : null
+            if (data && (data.theme === 'dark' || data.theme === 'light' || data.theme === 'system')) {
+              theme = data.theme
+            }
+          }
+          if (theme === 'system') {
+            theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+          }
+          document.documentElement.dataset.theme = theme
+        } catch (error) {
+          document.documentElement.dataset.theme = 'dark'
+        }
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

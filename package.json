@@ -1,0 +1,62 @@
+{
+  "name": "toolset",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --build --force",
+    "lint": "eslint .",
+    "format": "prettier --write src tests scripts docs",
+    "format:check": "prettier --check src tests scripts docs",
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test",
+    "check:arch": "depcruise src --config .dependency-cruiser.cjs",
+    "check:chunks": "node scripts/check-chunks.mjs",
+    "verify": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test:unit && pnpm check:arch && pnpm build && pnpm check:chunks && pnpm test:e2e"
+  },
+  "dependencies": {
+    "@codemirror/autocomplete": "^6.20.1",
+    "@codemirror/lang-javascript": "^6.2.5",
+    "@codemirror/state": "^6.6.1",
+    "@codemirror/view": "^6.41.0",
+    "codemirror": "^6.0.2",
+    "lucide-vue-next": "^0.553.0",
+    "pinia": "^4.0.3",
+    "uplot": "^1.6.32",
+    "vue": "^3.5.42",
+    "vue-router": "^5.3.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@tsconfig/node24": "^24.0.5",
+    "@types/node": "^24.13.4",
+    "@vitejs/plugin-vue": "^6.0.8",
+    "@vitest/eslint-plugin": "^1.6.27",
+    "@vue/compiler-sfc": "^3.5.45",
+    "@vue/eslint-config-typescript": "^14.9.0",
+    "@vue/test-utils": "^2.5.0",
+    "@vue/tsconfig": "^0.9.1",
+    "dependency-cruiser": "^17.2.2",
+    "eslint": "^10.10.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-oxlint": "~1.82.0",
+    "eslint-plugin-playwright": "^2.12.0",
+    "eslint-plugin-vue": "~10.11.0",
+    "fake-indexeddb": "^6.2.4",
+    "happy-dom": "^20.8.3",
+    "jiti": "^2.7.0",
+    "oxlint": "~1.82.0",
+    "prettier": "3.9.6",
+    "typescript": "~6.0.0",
+    "vite": "^8.2.2",
+    "vitest": "^4.1.11",
+    "vue-eslint-parser": "^10.4.1",
+    "vue-tsc": "^3.3.11"
+  },
+  "engines": {
+    "node": "^22.18.0 || >=24.12.0"
+  }
+}
